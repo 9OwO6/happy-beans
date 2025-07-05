@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { ShoppingBag, Menu } from 'lucide-react';
 
 const Header = () => {
@@ -25,8 +26,8 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3 cursor-pointer" onClick={handleHomeClick}>
-            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center ring-2 ring-sky-100 shadow overflow-hidden drop-shadow-md">
-              <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain rounded-xl" />
+            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center ring-2 ring-sky-100 shadow overflow-hidden drop-shadow-md relative">
+              <Image src="/logo.png" alt="Logo" width={40} height={40} className="object-contain rounded-xl" />
             </div>
             <div>
               <h1 className="font-heading text-2xl md:text-3xl text-header-brown leading-tight drop-shadow-md">

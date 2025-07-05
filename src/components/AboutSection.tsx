@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Image from 'next/image';
 import { Heart, Users, Award, Smile } from 'lucide-react';
 
 const AboutSection = () => {
@@ -84,11 +85,12 @@ const AboutSection = () => {
             <div className="relative animate-slide-up">
               <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-12 shadow-kawaii hover:shadow-kawaii-hover transition-all duration-500">
                 <div className="text-center">
-                  <div className="w-64 h-64 mx-auto mb-8 bg-gradient-kawaii rounded-full flex items-center justify-center shadow-kawaii animate-bounce-soft overflow-hidden">
-                    <img 
+                  <div className="w-64 h-64 mx-auto mb-8 bg-gradient-kawaii rounded-full flex items-center justify-center shadow-kawaii animate-bounce-soft overflow-hidden relative">
+                    <Image 
                       src="/images/home_about_img.png" 
                       alt="Happy Beans About" 
-                      className="w-full h-full object-cover rounded-full"
+                      fill
+                      className="object-cover rounded-full"
                     />
                   </div>
                   <h3 className="text-3xl font-bold text-gray-800 mb-4 font-fredoka">

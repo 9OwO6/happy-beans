@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { Star, Heart } from 'lucide-react';
 
 interface Product {
@@ -84,7 +85,12 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products = defaultP
             >
               <div className="relative w-48 h-48 mb-4 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-yellow-100 via-pink-100 to-blue-100 flex items-center justify-center">
                 {p.image_url ? (
-                  <img src={p.image_url} alt={p.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
+                  <Image 
+                    src={p.image_url} 
+                    alt={p.name} 
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-110" 
+                  />
                 ) : (
                   <span className="text-5xl text-gray-300">🛍️</span>
                 )}
