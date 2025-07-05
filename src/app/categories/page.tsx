@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Header from '@/components/Header';
 
 interface Category {
@@ -19,7 +20,7 @@ interface Category {
 const CategoriesPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+
 
   useEffect(() => {
     setIsVisible(true);
@@ -120,7 +121,6 @@ const CategoriesPage = () => {
   ];
 
   const handleCategoryClick = (category: Category) => {
-    setSelectedCategory(category);
     // 跳转到具体的分类页面
     window.location.href = `/categories/${category.id}`;
   };
@@ -222,10 +222,11 @@ const CategoriesPage = () => {
                       {/* 分类图片区域 */}
                       <div className={`w-32 h-24 bg-gradient-to-r ${category.gradient} rounded-2xl flex items-center justify-center mx-auto shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:scale-105 mb-4 ${category.animation} ${category.id === 'fashion-wear' ? 'group-hover:animate-gentle-shake' : ''} ${category.id === 'practical-goods' ? 'animate-breathe' : ''} ${category.id === 'beauty-supplies' ? 'animate-float' : ''} ${category.id === 'anime-shop' ? 'animate-neon-pulse' : ''} ${category.id === 'useless-beauty' ? 'group-hover:animate-focus-blur' : ''} overflow-hidden`}>
                         {/* 尝试加载图片，如果失败则显示图标 */}
-                        <img 
+                        <Image 
                           src={`/images/categories/${category.id}.jpg`}
                           alt={category.name}
-                          className="w-full h-full object-cover rounded-2xl transition-all duration-300 group-hover:scale-110"
+                          fill
+                          className="object-cover rounded-2xl transition-all duration-300 group-hover:scale-110"
                           onError={(e) => {
                             // 图片加载失败时隐藏图片，显示图标
                             e.currentTarget.style.display = 'none';

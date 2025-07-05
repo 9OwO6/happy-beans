@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Sparkles, ArrowRight } from 'lucide-react';
 
 const heroImages = ['/HeroB/hero1.png', '/HeroB/hero2.png', '/HeroB/hero3.png'];
@@ -19,12 +20,13 @@ const HeroSection = () => {
       {/* 背景轮播图片层 */}
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
         {heroImages.map((src, idx) => (
-          <img
+          <Image
             key={src}
             src={src}
             alt=""
+            fill
             className={`
-              absolute inset-0 w-full h-full object-cover
+              object-cover
               transition-opacity duration-2000
               ${bgIndex === idx ? 'opacity-30' : 'opacity-0'}
             `}

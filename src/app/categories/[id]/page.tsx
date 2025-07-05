@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import Header from '@/components/Header';
 
@@ -182,7 +183,7 @@ const CategoryDetailPage = () => {
 
   // 搜索和价格筛选
   const getFilteredProducts = () => {
-    let filtered = products.filter(p => {
+    const filtered = products.filter(p => {
       const matchSearch = !search || p.name.includes(search) || p.description.includes(search);
       const matchPrice = p.price >= priceRange[0] && p.price <= priceRange[1];
       return matchSearch && matchPrice;
@@ -289,10 +290,11 @@ const CategoryDetailPage = () => {
                 {/* 分类图片区域 */}
                 <div className={`w-48 h-36 bg-gradient-to-r ${categoryInfo.gradient} rounded-3xl flex items-center justify-center mx-auto shadow-2xl mb-6 group-hover:shadow-2xl transition-all duration-500 ${categoryInfo.animation} ${categoryInfo.id === 'fashion-wear' ? 'group-hover:animate-gentle-shake' : ''} ${categoryInfo.id === 'practical-goods' ? 'animate-breathe' : ''} ${categoryInfo.id === 'beauty-supplies' ? 'animate-float' : ''} ${categoryInfo.id === 'anime-shop' ? 'animate-neon-pulse' : ''} ${categoryInfo.id === 'useless-beauty' ? 'group-hover:animate-focus-blur' : ''} overflow-hidden`}>
                   {/* 尝试加载图片，如果失败则显示图标 */}
-                  <img 
+                  <Image 
                     src={`/images/categories/${categoryInfo.id}.jpg`}
                     alt={categoryInfo.name}
-                    className="w-full h-full object-cover rounded-3xl transition-all duration-300 group-hover:scale-110"
+                    fill
+                    className="object-cover rounded-3xl transition-all duration-300 group-hover:scale-110"
                     onError={(e) => {
                       // 图片加载失败时隐藏图片，显示图标
                       e.currentTarget.style.display = 'none';
@@ -418,7 +420,7 @@ const CategoryDetailPage = () => {
                         {/* 产品图片 */}
                         <div className="relative w-full h-48 mb-4 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#FFF5BA] via-[#FFD6E0] to-[#A5D8FA] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                           {product.image_url ? (
-                            <img src={product.image_url} alt={product.name} className="object-cover w-full h-full" />
+                            <Image src={product.image_url} alt={product.name} fill className="object-cover" />
                           ) : (
                             <div className="w-full h-full bg-gradient-to-br from-[#FFF5BA] to-[#FFD6E0] flex items-center justify-center">
                               <div className="w-12 h-12 border-4 border-[#FFB6B9] border-t-transparent rounded-full animate-spin"></div>
@@ -486,9 +488,9 @@ const CategoryDetailPage = () => {
                 {/* 主图片区域 */}
                 <div className="relative w-96 h-96 mb-6 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#FFF5BA] via-[#FFD6E0] to-[#A5D8FA] flex items-center justify-center cursor-zoom-in border-4 border-[#FFD6E0]" onClick={() => setImgZoom(true)}>
                   {(selected.image_urls && selected.image_urls.length > 0) ? (
-                    <img src={selected.image_urls[currentImageIndex]} alt={selected.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
-                  ) : selected.image_url ? (
-                    <img src={selected.image_url} alt={selected.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
+                    <Image src={selected.image_urls[currentImageIndex]} alt={selected.name} fill className="object-cover transition-transform duration-300 hover:scale-110" />
+                                      ) : selected.image_url ? (
+                      <Image src={selected.image_url} alt={selected.name} fill className="object-cover transition-transform duration-300 hover:scale-110" />
                   ) : (
                     <div className="w-full h-full bg-gradient-to-br from-[#FFF5BA] to-[#FFD6E0] flex items-center justify-center">
                       <div className="w-20 h-20 border-4 border-[#FFB6B9] border-t-transparent rounded-full animate-spin"></div>
