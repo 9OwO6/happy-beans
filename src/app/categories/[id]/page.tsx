@@ -162,7 +162,7 @@ const CategoryDetailPage = () => {
       setLoading(false);
     }
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId, categories]);
 
   // 排序功能
   const getSortedProducts = (products: Product[]) => {
@@ -512,7 +512,7 @@ const CategoryDetailPage = () => {
                             : 'border-gray-300 hover:border-[#A5D8FA]'
                         }`}
                       >
-                        <img src={url} alt={`${selected.name} ${index + 1}`} className="w-full h-full object-cover" />
+                        <Image src={url} alt={`${selected.name} ${index + 1}`} fill className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -568,10 +568,11 @@ const CategoryDetailPage = () => {
         {imgZoom && selected && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 animate-fade-in" onClick={() => setImgZoom(false)}>
             <div className="relative max-w-4xl max-h-[90vh] flex items-center justify-center">
-              <img 
+              <Image 
                 src={(selected.image_urls && selected.image_urls.length > 0) ? selected.image_urls[currentImageIndex] : selected.image_url} 
                 alt={selected.name} 
-                className="max-w-full max-h-full rounded-2xl shadow-2xl border-8 border-[#FFD6E0]" 
+                fill
+                className="max-w-full max-h-full rounded-2xl shadow-2xl border-8 border-[#FFD6E0] object-contain" 
               />
               
               {/* 多图导航 */}

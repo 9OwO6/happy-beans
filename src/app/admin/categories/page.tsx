@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -95,11 +95,7 @@ export default function CategoriesPage() {
     }
   ];
 
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     setLoading(true);
     try {
       // 获取每个分类的产品数量
@@ -122,7 +118,11 @@ export default function CategoriesPage() {
       console.error('加载分类失败:', error);
     }
     setLoading(false);
-  };
+  }, [predefinedCategories]);
+
+  useEffect(() => {
+    loadCategories();
+  }, [loadCategories]);
 
   const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -294,22 +294,22 @@ export default function CategoriesPage() {
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <div className="text-lg font-bold text-blue-600" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
-                          {category.productCount} 个产品
+                        <div className="text-lg font-bold text-gray-800" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
+                          {category.productCount}
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <div className="flex gap-2">
+                        <div className="flex space-x-2">
                           <button
                             onClick={() => startEdit(category)}
-                            className="bg-blue-500 text-white px-4 py-2 rounded-full text-sm hover:bg-blue-600 transition-colors duration-200"
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
                             style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
                           >
                             编辑
                           </button>
                           <button
                             onClick={() => handleDeleteCategory(category.id)}
-                            className="bg-red-500 text-white px-4 py-2 rounded-full text-sm hover:bg-red-600 transition-colors duration-200"
+                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors duration-200"
                             style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
                           >
                             删除
@@ -328,40 +328,23 @@ export default function CategoriesPage() {
         {(showAddForm || editingCategory) && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
             <div className="bg-white rounded-3xl p-8 max-w-2xl w-full mx-4 shadow-2xl">
-              <h2 className="text-3xl font-bold mb-6 text-center text-gray-800" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
+              <h2 className="text-3xl font-bold text-gray-800 mb-6" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
                 {editingCategory ? '编辑分类' : '新增分类'}
               </h2>
               
               <form onSubmit={editingCategory ? handleEditCategory : handleAddCategory} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-lg font-bold text-gray-700 mb-2" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
-                      分类名称 *
-                    </label>
-                    <input
-                      className="w-full px-4 py-3 border-2 border-[#A5D8FA] rounded-2xl focus:ring-2 focus:ring-[#A5D8FA] outline-none text-lg transition-all duration-200 focus:scale-105"
-                      style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
-                      value={formData.name}
-                      onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-lg font-bold text-gray-700 mb-2" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
-                      图标
-                    </label>
-                    <select
-                      className="w-full px-4 py-3 border-2 border-[#FFD6E0] rounded-2xl focus:ring-2 focus:ring-[#FFD6E0] outline-none text-lg transition-all duration-200 focus:scale-105"
-                      style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
-                      value={formData.icon}
-                      onChange={e => setFormData(prev => ({ ...prev, icon: e.target.value }))}
-                    >
-                      {iconOptions.map(icon => (
-                        <option key={icon} value={icon}>{icon}</option>
-                      ))}
-                    </select>
-                  </div>
+                <div>
+                  <label className="block text-lg font-bold text-gray-700 mb-2" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
+                    分类名称
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="输入分类名称"
+                    required
+                  />
                 </div>
 
                 <div>
@@ -369,42 +352,66 @@ export default function CategoriesPage() {
                     描述
                   </label>
                   <textarea
-                    className="w-full px-4 py-3 border-2 border-[#FFF5BA] rounded-2xl focus:ring-2 focus:ring-[#FFF5BA] outline-none text-lg transition-all duration-200 focus:scale-105 resize-none"
-                    style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
-                    rows={3}
                     value={formData.description}
-                    onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="输入分类描述"
+                    rows={3}
+                    required
                   />
                 </div>
 
                 <div>
                   <label className="block text-lg font-bold text-gray-700 mb-2" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
-                    渐变色
+                    图标
+                  </label>
+                  <div className="grid grid-cols-10 gap-2">
+                    {iconOptions.map((icon) => (
+                      <button
+                        key={icon}
+                        type="button"
+                        onClick={() => setFormData({...formData, icon})}
+                        className={`text-2xl p-2 rounded-lg border-2 transition-all duration-200 ${
+                          formData.icon === icon 
+                            ? 'border-blue-500 bg-blue-50' 
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      >
+                        {icon}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-lg font-bold text-gray-700 mb-2" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
+                    渐变样式
                   </label>
                   <select
-                    className="w-full px-4 py-3 border-2 border-[#A5D8FA] rounded-2xl focus:ring-2 focus:ring-[#A5D8FA] outline-none text-lg transition-all duration-200 focus:scale-105"
-                    style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
                     value={formData.gradient}
-                    onChange={e => setFormData(prev => ({ ...prev, gradient: e.target.value }))}
+                    onChange={(e) => setFormData({...formData, gradient: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
-                    {gradientOptions.map(option => (
-                      <option key={option.value} value={option.value}>{option.name}</option>
+                    {gradientOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.name}
+                      </option>
                     ))}
                   </select>
                 </div>
 
-                <div className="flex gap-4 pt-6">
+                <div className="flex space-x-4 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 bg-gradient-to-r from-[#FF6B9D] to-[#4ECDC4] text-white px-6 py-3 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    className="flex-1 bg-gradient-to-r from-[#FF6B9D] to-[#4ECDC4] text-white py-3 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                     style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
                   >
-                    {editingCategory ? '保存修改' : '新增分类'}
+                    {editingCategory ? '保存修改' : '创建分类'}
                   </button>
                   <button
                     type="button"
                     onClick={cancelEdit}
-                    className="flex-1 bg-gray-500 text-white px-6 py-3 rounded-full text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    className="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-3 rounded-xl text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300"
                     style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}
                   >
                     取消

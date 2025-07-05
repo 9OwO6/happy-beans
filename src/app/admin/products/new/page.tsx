@@ -35,7 +35,7 @@ export default function NewProductPage() {
 
   useEffect(() => {
     setCategories(predefinedCategories);
-  }, []);
+  }, [predefinedCategories]);
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);

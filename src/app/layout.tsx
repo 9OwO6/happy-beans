@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ZCOOL_KuaiLe } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +11,12 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const zcoolKuaiLe = ZCOOL_KuaiLe({
+  variable: "--font-zcool-kuai-le",
   subsets: ["latin"],
   weight: "400",
 });
@@ -25,13 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Pacifico&family=M+PLUS+Rounded+1c&family=Noto+Sans+SC:wght@700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${zcoolKuaiLe.variable}`}>
       <body className="antialiased">
         {children}
       </body>
