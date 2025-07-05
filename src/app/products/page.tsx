@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import Header from '@/components/Header';
 
@@ -349,7 +350,12 @@ const ProductList = () => {
                   >
                     <div className={`relative ${viewMode === 'list' ? 'w-32 h-32' : 'w-48 h-48'} mb-4 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#FFF5BA] via-[#FFD6E0] to-[#A5D8FA] flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border-4 border-[#FFD6E0]`}>
                       {p.image_url ? (
-                        <img src={p.image_url} alt={p.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
+                        <Image 
+                          src={p.image_url} 
+                          alt={p.name} 
+                          fill
+                          className="object-cover transition-transform duration-300 hover:scale-110" 
+                        />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-[#FFF5BA] to-[#FFD6E0] flex items-center justify-center">
                           <div className="w-16 h-16 border-4 border-[#FFB6B9] border-t-transparent rounded-full animate-spin"></div>
@@ -463,9 +469,19 @@ const ProductList = () => {
                   {/* 主图片区域 */}
                   <div className="relative w-96 h-96 mb-6 rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-[#FFF5BA] via-[#FFD6E0] to-[#A5D8FA] flex items-center justify-center cursor-zoom-in border-4 border-[#FFD6E0]" onClick={() => setImgZoom(true)}>
                     {(selected.image_urls && selected.image_urls.length > 0) ? (
-                      <img src={selected.image_urls[currentImageIndex]} alt={selected.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
+                      <Image 
+                        src={selected.image_urls[currentImageIndex]} 
+                        alt={selected.name} 
+                        fill
+                        className="object-cover transition-transform duration-300 hover:scale-110" 
+                      />
                     ) : selected.image_url ? (
-                      <img src={selected.image_url} alt={selected.name} className="object-cover w-full h-full transition-transform duration-300 hover:scale-110" />
+                      <Image 
+                        src={selected.image_url} 
+                        alt={selected.name} 
+                        fill
+                        className="object-cover transition-transform duration-300 hover:scale-110" 
+                      />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-[#FFF5BA] to-[#FFD6E0] flex items-center justify-center">
                         <div className="w-20 h-20 border-4 border-[#FFB6B9] border-t-transparent rounded-full animate-spin"></div>
@@ -481,13 +497,18 @@ const ProductList = () => {
                         <button
                           key={index}
                           onClick={() => setCurrentImageIndex(index)}
-                          className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                          className={`w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200 relative ${
                             index === currentImageIndex 
                               ? 'border-[#FF6B9D] scale-110' 
                               : 'border-gray-300 hover:border-[#A5D8FA]'
                           }`}
                         >
-                          <img src={url} alt={`${selected.name} ${index + 1}`} className="w-full h-full object-cover" />
+                          <Image 
+                            src={url} 
+                            alt={`${selected.name} ${index + 1}`} 
+                            fill
+                            className="object-cover" 
+                          />
                         </button>
                       ))}
                     </div>
