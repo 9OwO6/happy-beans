@@ -1,8 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&family=Baloo+2:wght@400;500;600;700;800&family=M+PLUS+Rounded+1c:wght@400;700&family=Comic+Neue:wght@300;400;700&family=Cherry+Bomb+One&family=Caveat+Brush:wght@400&family=Pixelify+Sans:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=ZCOOL+QingKe+HuangYou&family=ZCOOL+XiaoWei&family=ZCOOL+KuaiLe:wght@400&family=ZCOOL+QingKe+HuangYou:wght@400&family=ZCOOL+XiaoWei:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Sniglet:wght@400;800&family=Comfortaa:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 字体导入，必须在所有自定义 CSS 之前 */
+
+/* 下面是 src/index.css 的全部内容（变量、动画、utility class等） */
+/* // ...（此处粘贴 index.css 的全部内容）... */
+
+/* Tailwind 默认字体变量覆盖：设置 font-sans 使用你自定义的字体 */
+:root {
+  --font-sans: 'ZCOOL KuaiLe', 'Baloo 2', 'Comic Neue', 'M PLUS Rounded 1c', 'Noto Sans SC', sans-serif;
+  --font-cute: 'ZCOOL KuaiLe', 'Fredoka One', 'Sniglet', cursive;
+  --font-heading-cute: 'ZCOOL QingKe HuangYou', 'ZCOOL KuaiLe', 'Rubik Puddles', cursive;
+  --font-body-cute: 'ZCOOL XiaoWei', 'Comfortaa', 'Baloo 2', sans-serif;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-heading: 'Rubik Puddles', cursive;
 }
 
 @theme inline {
@@ -20,7 +78,499 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #fceabb 50%, #b5d8f8 100%);
+  font-family: 'Baloo 2', 'Rubik Puddles', 'Comic Neue', 'M PLUS Rounded 1c', 'sans-serif';
+  color: #333;
+  @apply font-sans;
+  background-color: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.animate-fade-in {
+  animation: fade-in 0.8s cubic-bezier(.4,0,.2,1) both;
+}
+
+/* 可爱按钮通用样式 */
+.cute-btn {
+  display: inline-block;
+  border: none;
+  outline: none;
+  border-radius: 9999px;
+  font-family: 'Baloo 2', 'Rubik Puddles', cursive, sans-serif;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.6em 1.6em;
+  background: linear-gradient(90deg, #ffe7ba 0%, #b5d8f8 100%);
+  color: #3b3b3b;
+  box-shadow: 0 2px 12px 0 rgba(181,216,248,0.15);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s;
+  cursor: pointer;
+}
+.cute-btn:hover {
+  transform: scale(1.07) translateY(-2px);
+  background: linear-gradient(90deg, #b5d8f8 0%, #ffe7ba 100%);
+  box-shadow: 0 4px 24px 0 rgba(181,216,248,0.25);
+}
+.cute-btn:active {
+  transform: scale(0.97);
+}
+
+/* 可爱删除按钮 */
+.cute-btn-danger {
+  background: linear-gradient(90deg, #ffb6b6 0%, #ffd6e0 100%);
+  color: #b91c1c;
+}
+.cute-btn-danger:hover {
+  background: linear-gradient(90deg, #ffd6e0 0%, #ffb6b6 100%);
+  color: #fff;
+}
+
+/* 可爱下拉框 */
+.cute-select {
+  border-radius: 9999px;
+  border: 2px solid #b5d8f8;
+  background: #fffbe7;
+  font-family: 'Baloo 2', 'Rubik Puddles', cursive, sans-serif;
+  font-size: 1.05rem;
+  padding: 0.5em 1.2em;
+  color: #3b3b3b;
+  outline: none;
+  transition: border 0.2s;
+}
+.cute-select:focus {
+  border-color: #7ec4f8;
+}
+
+/* About页面特殊动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 182, 185, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(165, 216, 250, 0.5); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.animate-wave {
+  animation: wave 2s ease-in-out infinite;
+}
+
+/* 滚动视差效果 */
+.parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* 毛玻璃效果增强 */
+.glass-effect {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 渐变文字动画 */
+.gradient-text-animate {
+  background: linear-gradient(45deg, #FFB6B9, #A5D8FA, #FFD6E0, #FFF5BA);
+  background-size: 400% 400%;
+  animation: gradient-shift 4s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 分类页面特殊动画 */
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* 分类卡片特殊效果 */
+.category-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.category-card:hover::before {
+  left: 100%;
+}
+
+/* 特殊效果类 */
+.effect-sparkle {
+  position: relative;
+}
+
+.effect-sparkle::after {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.effect-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.effect-wave::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #4ECDC4, transparent);
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.effect-glow {
+  position: relative;
+}
+
+.effect-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #45B7D1, #7C3AED, #45B7D1);
+  border-radius: inherit;
+  z-index: -1;
+  animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.effect-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.effect-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.effect-confetti {
+  position: relative;
+}
+
+.effect-confetti::before,
+.effect-confetti::after {
+  content: '🎊';
+  position: absolute;
+  font-size: 1.5rem;
+  animation: confetti 3s ease-in-out infinite;
+}
+
+.effect-confetti::before {
+  top: 10px;
+  left: 10px;
+  animation-delay: 0s;
+}
+
+.effect-confetti::after {
+  top: 20px;
+  right: 10px;
+  animation-delay: 1.5s;
+}
+
+@keyframes confetti {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+.effect-neon {
+  position: relative;
+}
+
+.effect-neon::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #A8E6CF, #4ECDC4, #A8E6CF);
+  border-radius: inherit;
+  z-index: -1;
+  animation: neon 2s ease-in-out infinite;
+}
+
+@keyframes neon {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.effect-petals {
+  position: relative;
+}
+
+.effect-petals::before,
+.effect-petals::after {
+  content: '🌸';
+  position: absolute;
+  font-size: 1.2rem;
+  animation: petals 4s ease-in-out infinite;
+}
+
+.effect-petals::before {
+  top: 15px;
+  left: 15px;
+  animation-delay: 0s;
+}
+
+.effect-petals::after {
+  top: 25px;
+  right: 15px;
+  animation-delay: 2s;
+}
+
+@keyframes petals {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  50% { transform: translateY(-15px) rotate(90deg); opacity: 1; }
+}
+
+/* 可爱字体类 */
+.font-cute {
+  font-family: var(--font-cute);
+}
+
+.font-heading-cute {
+  font-family: var(--font-heading-cute);
+}
+
+.font-body-cute {
+  font-family: var(--font-body-cute);
+}
+
+/* 可爱的文字颜色 */
+.text-cute-pink {
+  color: #FF69B4;
+}
+
+.text-cute-blue {
+  color: #87CEEB;
+}
+
+.text-cute-purple {
+  color: #DDA0DD;
+}
+
+.text-cute-yellow {
+  color: #F0E68C;
+}
+
+.text-cute-green {
+  color: #98FB98;
+}
+
+.text-cute-orange {
+  color: #FFB347;
+}
+
+/* 渐变文字颜色 */
+.text-gradient-cute {
+  background: linear-gradient(135deg, #FF69B4, #87CEEB, #DDA0DD, #F0E68C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(135deg, #FF6B6B, #FFE66D, #FF8E53, #FF6B9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cool {
+  background: linear-gradient(135deg, #4ECDC4, #44A08D, #7F7FD5, #86A8E7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 克制但精致的分类卡片动画 */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes gentle-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor; }
+  50% { box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor; }
+}
+
+@keyframes focus-blur {
+  0% { filter: blur(0px); }
+  50% { filter: blur(1px); }
+  100% { filter: blur(0px); }
+}
+
+@keyframes slide-in-bottom {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ripple {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+@keyframes confetti-pop {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 0; }
+}
+
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+.animate-gentle-shake {
+  animation: gentle-shake 0.5s ease-in-out;
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+.animate-focus-blur {
+  animation: focus-blur 0.6s ease-in-out;
+}
+
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 0.6s ease-out;
+}
+
+.animate-ripple {
+  animation: ripple 0.6s ease-out;
+}
+
+.animate-confetti-pop {
+  animation: confetti-pop 0.8s ease-out;
+}
+
+/* 光泽效果 */
+.shimmer-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s;
+}
+
+.shimmer-effect:hover::before {
+  left: 100%;
+}
+
+/* 波纹效果 */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::after {
+  width: 300px;
+  height: 300px;
 }
