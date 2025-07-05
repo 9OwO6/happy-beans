@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Header from '@/components/Header';
 
 const AboutPage = () => {
@@ -227,11 +228,12 @@ const AboutPage = () => {
                   }`}
                   style={{ transitionDelay: `${index * 200}ms` }}
                 >
-                  <div className="w-full h-48 mb-6">
-                    <img 
+                  <div className="w-full h-48 mb-6 relative">
+                    <Image 
                       src="/images/about/delivery-service.jpg" 
                       alt="福豆配送服务" 
-                      className="w-full h-full object-cover rounded-2xl shadow-lg"
+                      fill
+                      className="object-cover rounded-2xl shadow-lg"
                     />
                   </div>
                   <h3 className="text-2xl font-cute font-bold text-cute-pink mb-2">{service.area}</h3>
@@ -315,13 +317,14 @@ const AboutPage = () => {
                         <h3 className="text-2xl font-cute font-bold text-cute-pink mb-2">微信客服</h3>
                         <p className="text-lg font-body-cute text-gray-700 mb-4">扫描二维码添加客服</p>
                         <div 
-                          className="w-32 h-32 mx-auto rounded-2xl shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
+                          className="w-32 h-32 mx-auto rounded-2xl shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300 relative"
                           onClick={() => openModal('/images/about/wechat-qr.png', '微信二维码')}
                         >
-                          <img 
+                          <Image 
                             src="/images/about/wechat-qr.png" 
                             alt="微信二维码" 
-                            className="w-full h-full object-cover rounded-2xl"
+                            fill
+                            className="object-cover rounded-2xl"
                           />
                         </div>
                         <p className="text-sm font-body-cute text-gray-600 mt-2">点击查看大图</p>
@@ -333,13 +336,14 @@ const AboutPage = () => {
                         <h3 className="text-2xl font-cute font-bold text-cute-pink mb-2">Instagram</h3>
                         <p className="text-lg font-body-cute text-gray-700 mb-4">关注我们的最新动态</p>
                         <div 
-                          className="w-32 h-32 mx-auto rounded-2xl shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300"
+                          className="w-32 h-32 mx-auto rounded-2xl shadow-lg cursor-pointer hover:scale-105 transition-transform duration-300 relative"
                           onClick={() => openModal('/images/about/instagram-qr.png', 'Instagram二维码')}
                         >
-                          <img 
+                          <Image 
                             src="/images/about/instagram-qr.png" 
                             alt="Instagram二维码" 
-                            className="w-full h-full object-cover rounded-2xl"
+                            fill
+                            className="object-cover rounded-2xl"
                           />
                         </div>
                         <p className="text-sm font-body-cute text-gray-600 mt-2">@happydou_shop</p>
@@ -454,9 +458,11 @@ const AboutPage = () => {
                 ×
               </button>
             </div>
-            <img 
-              src={modalImage} 
+            <Image 
+              src={modalImage || ''} 
               alt={modalTitle} 
+              width={300}
+              height={300}
               className="w-full h-auto rounded-2xl shadow-lg"
             />
             <p className="text-center mt-4 text-gray-600">点击外部区域关闭</p>
