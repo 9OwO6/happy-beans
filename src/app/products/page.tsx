@@ -19,7 +19,6 @@ interface Product {
   created_at: string;
 }
 
-const kawaiiBg = 'bg-gradient-to-br from-[#FFF5BA] via-[#A5D8FA] to-[#FFD6E0]';
 const kawaiiShadow = 'shadow-[0_8px_32px_0_rgba(255,182,185,0.15),0_1.5px_8px_0_rgba(165,216,250,0.10)]';
 const borderGradient = 'border-4 border-transparent bg-clip-padding bg-gradient-to-br from-[#FFD6E0] via-[#FFF5BA] to-[#A5D8FA]';
 
@@ -569,10 +568,12 @@ const ProductList = () => {
           {imgZoom && selected && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 animate-fade-in" onClick={() => setImgZoom(false)}>
               <div className="relative max-w-4xl max-h-[90vh] flex items-center justify-center">
-                <img 
+                <Image 
                   src={(selected.image_urls && selected.image_urls.length > 0) ? selected.image_urls[currentImageIndex] : selected.image_url} 
                   alt={selected.name} 
-                  className="max-w-full max-h-full rounded-2xl shadow-2xl border-8 border-[#FFD6E0]" 
+                  width={800}
+                  height={600}
+                  className="max-w-full max-h-full rounded-2xl shadow-2xl border-8 border-[#FFD6E0] object-contain" 
                 />
                 
                 {/* 多图导航 */}

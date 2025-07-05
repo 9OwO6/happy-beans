@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { Star, Heart } from 'lucide-react';
+
 
 interface Product {
   id: string;

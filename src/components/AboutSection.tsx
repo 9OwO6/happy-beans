@@ -59,7 +59,7 @@ const AboutSection = () => {
                   beautiful, adorable things. 🌸
                 </p>
                 <p>
-                  Our name "福豆" (Happy Beans) represents good fortune and prosperity - values we 
+                  Our name &quot;福豆&quot; (Happy Beans) represents good fortune and prosperity - values we 
                   hope to share with every customer who becomes part of our kawaii family! 💕
                 </p>
               </div>
