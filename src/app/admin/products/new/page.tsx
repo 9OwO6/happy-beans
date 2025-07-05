@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -51,7 +52,7 @@ export default function NewProductPage() {
         const fileName = `${Date.now()}_${Math.random().toString(36).substr(2, 9)}.${fileExt}`;
         const filePath = `${userId}/${fileName}`;
 
-        const { data, error } = await supabase.storage
+        const { error } = await supabase.storage
           .from('product-images')
           .upload(filePath, file);
 
@@ -261,11 +262,14 @@ export default function NewProductPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {imageUrls.map((url, index) => (
                     <div key={index} className="relative group">
-                      <img 
-                        src={url} 
-                        alt={`预览 ${index + 1}`} 
-                        className="w-full h-32 object-cover rounded-2xl shadow-lg transition-all duration-300 group-hover:scale-105"
-                      />
+                      <div className="relative w-full h-32">
+                        <Image 
+                          src={url} 
+                          alt={`预览 ${index + 1}`} 
+                          fill
+                          className="object-cover rounded-2xl shadow-lg transition-all duration-300 group-hover:scale-105"
+                        />
+                      </div>
                       <button
                         type="button"
                         onClick={() => removeImage(index)}

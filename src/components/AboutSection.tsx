@@ -49,7 +49,7 @@ const AboutSection = () => {
               
               <div className="space-y-6 text-gray-700 text-xl leading-relaxed mb-10 font-poppins">
                 <p>
-                  Welcome to Happy Beans (福豆), where East meets pure joy! We're passionate about sharing 
+                  Welcome to Happy Beans (福豆), where East meets pure joy! We&apos;re passionate about sharing 
                   the beautiful, kawaii world of Japanese and Korean culture through carefully curated items 
                   that spark happiness and wonder in every heart. ✨
                 </p>

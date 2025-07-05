@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -102,7 +103,9 @@ export default function AdminDashboard() {
           {filteredProducts.map((p) => (
             <div key={p.id} className="bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col items-center animate-fade-in border border-blue-100" style={{ fontFamily: 'ZCOOL KuaiLe, cursive' }}>
               {p.image_url && (
-                <img src={p.image_url} alt={p.name} className="w-32 h-32 object-cover rounded-xl mb-2 shadow" />
+                <div className="relative w-32 h-32 mb-2">
+                  <Image src={p.image_url} alt={p.name} fill className="object-cover rounded-xl shadow" />
+                </div>
               )}
               <div className="text-lg font-bold text-blue-500 mb-1">{p.name}</div>
               <div className="text-sm text-yellow-500 mb-1">{p.category || "未分类"}</div>
