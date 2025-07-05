@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
@@ -23,7 +23,7 @@ export default function NewProductPage() {
   const router = useRouter();
 
   // 预定义的分类
-  const predefinedCategories: Category[] = [
+  const predefinedCategories = useMemo<Category[]>(() => [
     { id: 'trendy-decor', name: '潮流摆件', description: '精选时尚潮流摆件，为你的空间增添独特魅力' },
     { id: 'fashion-wear', name: '衣帽穿搭', description: '时尚服饰与配饰，展现你的个性风格' },
     { id: 'practical-goods', name: '实用好物', description: '精选实用生活用品，让生活更加便利美好' },
@@ -31,7 +31,7 @@ export default function NewProductPage() {
     { id: 'festival-special', name: '节日精选', description: '节日主题商品，为每个特殊时刻增添欢乐' },
     { id: 'anime-shop', name: '次元小铺', description: '二次元周边商品，带你进入动漫世界' },
     { id: 'useless-beauty', name: '无用之美', description: '那些看似无用却充满美感的艺术品' }
-  ];
+  ], []);
 
   useEffect(() => {
     setCategories(predefinedCategories);

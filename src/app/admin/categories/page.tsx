@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function CategoriesPage() {
     gradient: "from-pink-400 via-purple-500 to-indigo-500"
   });
 
-  const predefinedCategories: Category[] = [
+  const predefinedCategories = useMemo<Category[]>(() => [
     {
       id: 'trendy-decor',
       name: '潮流摆件',
@@ -93,7 +93,7 @@ export default function CategoriesPage() {
       gradient: 'from-pink-300 via-rose-400 to-red-400',
       productCount: 0
     }
-  ];
+  ], []);
 
   const loadCategories = useCallback(async () => {
     setLoading(true);

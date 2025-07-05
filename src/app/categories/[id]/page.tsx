@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
@@ -50,7 +50,7 @@ const CategoryDetailPage = () => {
   const [likedProducts, setLikedProducts] = useState<string[]>([]);
   const [categoryInfo, setCategoryInfo] = useState<CategoryInfo | null>(null);
 
-  const categories: CategoryInfo[] = [
+  const categories = useMemo<CategoryInfo[]>(() => [
     {
       id: 'trendy-decor',
       name: '潮流摆件',
@@ -142,7 +142,7 @@ const CategoryDetailPage = () => {
       animation: 'animate-focus-blur',
       specialEffect: 'petals'
     }
-  ];
+  ], []);
 
   useEffect(() => {
     setIsVisible(true);
