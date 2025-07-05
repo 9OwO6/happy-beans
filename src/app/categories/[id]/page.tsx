@@ -161,7 +161,7 @@ const CategoryDetailPage = () => {
       setLoading(false);
     }
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId, categories]);
 
   // 排序功能
   const getSortedProducts = (products: Product[]) => {
